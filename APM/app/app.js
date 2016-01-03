@@ -5,5 +5,4 @@
 // we could have a module for pricing options or one for tracking
 // vendors.
 // Each controller and service must be registered with a module.
-
 angular.module("productManagement", []);

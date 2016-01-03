@@ -1,0 +1,8 @@
+// This file allows us to configure out typescript project.
+// The presence of this file in a folder indicates that the
+// folder is the root directory of a typescript project.
+{
+    "compilerOptions": {
+        "target": "es5"
+    }
+}

@@ -1,5 +1,7 @@
 <div class="panel panel-primary"
-     ng-controller="ProductListCtrl as vm">
+     ng-controller="ProductListCtrl as vm"> 
+     <!-- Use the 'as' syntax to define an alias. With this syntax, we
+            also don't need to inject $scope to the controller.  -->
     <div class="panel-heading"
          style="font-size:large">{{::vm.title}}
     </div>

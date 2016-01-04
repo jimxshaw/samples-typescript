@@ -35,5 +35,16 @@ var ProductListCtrl = (function () {
             }
         ];
     }
+    ProductListCtrl.prototype.toggleImage = function () {
+        this.showImage = !this.showImage;
+    };
     return ProductListCtrl;
 })();
+// Controllers have to be registered with an angular module.
+// The registration code has to be after the class is defined.
+// The reason is that the compiled .js class output results in an
+// IIFE. If the IIFE doesn't run prior to registration then an error
+// occurs.
+angular
+    .module("productManagement")
+    .controller("ProductListCtrl", ProductListCtrl);

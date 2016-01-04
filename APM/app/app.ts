@@ -6,4 +6,6 @@
 // vendors.
 // Each controller and service must be registered with a module.
 
-angular.module("productManagement", []);
+module app {
+    angular.module("productManagement", []);
+}

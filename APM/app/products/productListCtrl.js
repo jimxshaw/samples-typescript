@@ -1,3 +1,10 @@
+// TypeScript modules are NOT the same as Angular modules.
+// TypeScript modules are similar to C# namespaces.
+// Interfaces and classes within a ts module are local to that
+// module. TypeScript modules provide code encapsulation.
+// It keeps the resulting output functions out of the global namespace.
+// If any other module needs access to this module's members
+// then place the keyword export in front of the member signature.
 var app;
 (function (app) {
     var productList;

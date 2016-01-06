@@ -14,7 +14,8 @@ module app.productList {
         showImage: boolean;
         // Whenever the type isn't known, the any keyword can be used.
         // However, best practices state a specific type should be used.
-        products: any[];
+        //products: any[];
+        products: app.domain.IProduct[]; // From product.ts
         
         toggleImage(): void;     
     }
@@ -25,7 +26,8 @@ module app.productList {
     class ProductListCtrl implements IProductListModel {
         title: string;
         showImage: boolean;
-        products: any[];
+        //products: any[];
+        products: app.domain.IProduct[];
         
         constructor() {
             this.title = "Product List";
@@ -59,6 +61,13 @@ module app.productList {
                     "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
                 }
             ];
+            var newProduct = new app.domain.Product(3, "Saw", "TBX-002",
+                                                    new Date(2015, 5, 21), 18.99,
+                                                    "18-inch alloy saw",
+                                                    "https://openclipart.org/image/800px/svg_to_png/27070/egore911-saw.png");
+            
+            newProduct.price = newProduct.calculateDiscount(10);
+            this.products.push(newProduct);
         }
         
         toggleImage(): void {

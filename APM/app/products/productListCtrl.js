@@ -45,6 +45,9 @@ var app;
                         "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
                     }
                 ];
+                var newProduct = new app.domain.Product(3, "Saw", "TBX-002", new Date(2015, 5, 21), 18.99, "18-inch alloy saw", "https://openclipart.org/image/800px/svg_to_png/27070/egore911-saw.png");
+                newProduct.price = newProduct.calculateDiscount(10);
+                this.products.push(newProduct);
             }
             ProductListCtrl.prototype.toggleImage = function () {
                 this.showImage = !this.showImage;

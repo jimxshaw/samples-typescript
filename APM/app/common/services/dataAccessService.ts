@@ -9,7 +9,7 @@
 
 module app.common {
     interface IDataAccessService {
-        
+        getProductResource() : ng.resource.IResourceClass<IProductResource>
     }
     
     // Since we're identifying the interface for the
@@ -25,6 +25,27 @@ module app.common {
     interface IProductResource 
         extends ng.resource.IResource<app.domain.IProduct> {
         
+    }
+    
+    export class DataAccessService implements IDataAccessService {
+        
+        // The private keyword allows TypeScript to automatically generate
+        // a private $resource property.
+        // To ensure we're safe from minification, we'll use Angular's $inject.
+        // That allows us to define an array containing the names of the services
+        // to inject. Also, $inject must be a property of the class, not a property
+        // of an instance of the class, hence the static keyword in front.
+        static $inject = ["$resource"];
+        constructor(private $resource: ng.resource.IResourceService) {
+            
+        }
+        
+        // This method returns the $resource object that specifies the URL
+        // to our HTTP service. IResourceClass is a generic interface and the
+        // type we place in it is the type we get back from the HTTP service call.
+        getProductResource() : ng.resource.IResourceClass<IProductResource> {
+            return this.$resource("/api/products/:productId");
+        }
     }
 }
 

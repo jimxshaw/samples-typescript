@@ -1,4 +1,13 @@
 /*
+    The purpose of Entity Classes is to allow your
+    app to have reusable business logic, code for working with products 
+    or vendors for example.
+    Instances of entity classes are created with the new keyword and 
+    multiple instances can be defined. For example, you can create an
+    array of product objects.
+    Angular Framework is not aware of entity classes so it cannot
+    use dependency injection to inject entity classes.
+
     Building an Entity Class
         - No Angular module needed
     Define an interface (optional)

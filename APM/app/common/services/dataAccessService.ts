@@ -47,6 +47,16 @@ module app.common {
             return this.$resource("/api/products/:productId");
         }
     }
+    
+    // Register the service with the Angular module. Note that we registered
+    // using the "Service" pattern, instead of the "Factory" pattern. The
+    // "Service" pattern more closely resembles TypeScript syntax.
+    angular
+        .module("common.services")
+        .service("dataAccessService", DataAccessService);
+        // First argument is the name of the service being injected.
+        // Second argument is the reference to the service class define above.
+        
 }
 
 

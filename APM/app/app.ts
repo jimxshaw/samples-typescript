@@ -14,8 +14,38 @@ module app {
     // web service.
     // To use the data access service, add the Angular module to the array of
     // module dependencies.
-    angular.module("productManagement", [
-                        "common.services",
-                        "productResourceMock"]);
+    var main = angular.module("productManagement", [
+                                "ngRoute",
+                                "common.services",
+                                "productResourceMock"]);
+                                
+    // By adding a variable to the Angular module, we can easily configure it.
+    // We wouldn't have to look up the module.
+    main.config(routeConfig);
+    
+    // Here's the route configuration void function that defines our routes.
+    // We have to inject the $routeProvider, of type IRouteProvider,
+    // in order to configure our routes.
+    // $inject is used to specify the route parameter. This ensures the
+    // dependency injection works properly, even after minification. 
+    routeConfig.$inject = ["$routeProvider"];
+    function routeConfig($routeProvider: ng.route.IRouteProvider): void {
+        
+        $routeProvider
+            // When has two parameters, a string path and a route object.
+            // When productList route is activated, the productListView is
+            // displayed and the ProductListCtrl is loaded.
+            .when("/productList", {
+                templateUrl: "/app/products/productListView.html",
+                controller: "ProductListCtrl as vm"
+            })
+            .when("/productDetail/:productId", {
+                templateUrl: "/app/products/productDetailView.html",
+                controller: "ProductDetailCtrl as vm"
+            })
+            // If there's anything other than the routes defined above,
+            // the code will route to the product list default.
+            .otherwise("/productList");
+    } 
 }
 

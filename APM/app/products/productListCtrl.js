@@ -13,10 +13,15 @@ var app;
         // exposed to the view and implements the interface methods for 
         // the actions required by the view.
         var ProductListCtrl = (function () {
-            function ProductListCtrl() {
+            function ProductListCtrl(dataAccessService) {
+                var _this = this;
+                this.dataAccessService = dataAccessService;
                 this.title = "Product List";
                 this.showImage = false;
-                this.products = [
+                // To use the data access service, simply remove or comment out the 
+                // hard coded data and simply use the property initialization below.
+                this.products = [];
+                /* this.products = [
                     {
                         "productId": 1,
                         "productName": "Leaf Rake",
@@ -45,13 +50,35 @@ var app;
                         "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
                     }
                 ];
-                var newProduct = new app.domain.Product(3, "Saw", "TBX-002", new Date(2015, 5, 21), 18.99, "18-inch alloy saw", "https://openclipart.org/image/800px/svg_to_png/27070/egore911-saw.png");
+                var newProduct = new app.domain.Product(3, "Saw", "TBX-002",
+                                                        new Date(2015, 5, 21), 18.99,
+                                                        "18-inch alloy saw",
+                                                        "https://openclipart.org/image/800px/svg_to_png/27070/egore911-saw.png");
+                
                 newProduct.price = newProduct.calculateDiscount(10);
                 this.products.push(newProduct);
+                */
+                // We have to declare a variable for the returned $resource and set it
+                // to the return value of the data access service's get resource method.
+                var productResource = dataAccessService.getProductResource();
+                // .query() is a built-in $resource object method that returns a set of objects,
+                // in our case a set of product objects. 
+                productResource.query(function (data) {
+                    // This is a callback function using fat arrow notation.
+                    // We're passing in a variable called data that will contain
+                    // the data returned from the query call, which is of type
+                    // IProduct[] array. The data returned from the query method is
+                    // assigned to the products array. 
+                    _this.products = data;
+                });
             }
             ProductListCtrl.prototype.toggleImage = function () {
                 this.showImage = !this.showImage;
             };
+            // To use the data access service, it must be injected into the controller's
+            // constructor. Note that the injection is called dataAccessService, which is
+            // the same name registered with the Angular module in dataAccessService.ts.
+            ProductListCtrl.$inject = ["dataAccessService"];
             return ProductListCtrl;
         })();
         // Controllers have to be registered with an angular module.

@@ -1,3 +1,4 @@
+
 // We define a TypeScript modules called app.common.
 module app.common {
     

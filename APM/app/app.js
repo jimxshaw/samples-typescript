@@ -12,5 +12,9 @@ var app;
     // this dependency. The HTTP requests will no longer be caught by the
     // mocking service and will instead be processed by your real HTTP
     // web service.
-    angular.module("productManagement", ["productResourceMock"]);
+    // To use the data access service, add the Angular module to the array of
+    // module dependencies.
+    angular.module("productManagement", [
+        "common.services",
+        "productResourceMock"]);
 })(app || (app = {}));

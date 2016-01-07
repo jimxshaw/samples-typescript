@@ -1,17 +1,25 @@
-/*
+// We define a TypeScript modules called app.common.
 module app.common {
-
+    
+    // We define an Angular module called productResourceMock.
+    // This module has a dependency on ngMockE2E system module.
     var mockResource = angular
         .module("productResourceMock",
             ["ngMockE2E"]);
-
+    
+    // We call the run method to run the mockRun function.
     mockResource.run(mockRun);
     
+    // This function sets up the HTTP responses.
+    // The mockRun injects $httpBackend, the Angular mocking service.
     mockRun.$inject = ["$httpBackend"];
     function mockRun($httpBackend: ng.IHttpBackendService) : void {
         var products: app.domain.IProduct[] = [];
         var product: app.domain.IProduct;
-
+        
+        // This code uses the product class we created earlier. We define each new product and
+        // add it to a list of products. We should see these products in the UI when this service
+        // is hooked up.
         product = new app.domain.Product(1, "Leaf Rake", "GDN-0011", new Date(2009, 2, 19), 19.95,
             "Leaf rake with 48-inch wooden handle.",
             "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png");
@@ -38,11 +46,18 @@ module app.common {
         products.push(product);
 
         var productUrl = "/api/products";
-
+        // When the below GET request is sent to the /api/products URL,
+        // the whenGET will responsd will respond by returning the entire 
+        // set of products we defined.
         $httpBackend.whenGET(productUrl).respond(products);
-
+        
+        // If a request is sent to /api/products with a number following a last slash,
+        // we use whenGET again to locate the product and return it.
         var editingRegex = new RegExp(productUrl + "/[0-9][0-9]*", '');
         $httpBackend.whenGET(editingRegex).respond(function(method, url, data) {
+            // This function may look complicated by it simply locating the product
+            // with an id that matches the parameter from the URL and returns the
+            // resulting product.
             var product = { "productId": 0 };
             var parameters = url.split('/');
             var length = parameters.length;
@@ -59,13 +74,17 @@ module app.common {
             return [200, product, {}];
         });
 
-        // Catch all for testing purposes
+        // Catch all for testing purposes.
         $httpBackend.whenGET(/api/).respond(function(method, url, data) {
+            // This whenGET is looking for any other GET requests containing /api/.
+            // This is primarily here for debugging.
             return [200, products, {}];
         });
                 
-        // Pass through any requests for application files
+        // Pass through any requests for application files.
+        // This whenGET is looking for any requests with an URL containing 
+        // the word /app/. This ensures that the mocking code won't attempt to
+        // process any HTTP requests that are for our HTML fragments. 
         $httpBackend.whenGET(/app/).passThrough();
     }
 }
-*/

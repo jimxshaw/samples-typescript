@@ -18,7 +18,12 @@
     </nav>
 
     <div class="container">
-        <div ng-include="'app/products/productListView.html'"></div>
+        <!-- <div ng-include="'app/products/productListView.html'"></div> -->
+        <!-- 
+            When our route is activated, the view will appear in the below tags
+            as opposed to the hard coded view above.
+         -->
+        <ng-view></ng-view>
     </div>
     
     <!--

@@ -1,7 +1,11 @@
-<div class="panel panel-primary"
+<!-- <div class="panel panel-primary"
      ng-controller="ProductListCtrl as vm"> 
-     <!-- Use the 'as' syntax to define an alias. With this syntax, we
-            also don't need to inject $scope to the controller.  -->
+     Use the 'as' syntax to define an alias. With this syntax, we
+     also don't need to inject $scope to the controller.  
+     Later, when we define the controller as part of the route in
+     app.ts, we then would no longer need the ng-controller directive
+     in the tag of this view. -->
+<div class="panel panel-primary">
     <div class="panel-heading"
          style="font-size:large">{{::vm.title}}
     </div>
@@ -32,7 +36,13 @@
                          style="width:50px;margin:2px"
                          title="{{product.productName}}">
                 </td>
-                <td>{{ product.productName}} </td>
+                <td>
+                    <!-- This anchor tag defines the route we want to 
+                         activate when the user clicks on the product name -->
+                    <a ng-href="#productDetail/{{product.productId}}">
+                        {{ product.productName }}
+                    </a> 
+                </td>
                 <td>{{ product.productCode }}</td>
                 <td>{{ product.releaseDate | date }}</td>
                 <td>{{ product.price | currency }}</td>

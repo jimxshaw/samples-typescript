@@ -21,7 +21,7 @@ var app;
     // By adding a variable to the Angular module, we can easily configure it.
     // We wouldn't have to look up the module.
     main.config(routeConfig);
-    // Here's the route configuration void function that define our routes.
+    // Here's the route configuration void function that defines our routes.
     // We have to inject the $routeProvider, of type IRouteProvider,
     // in order to configure our routes.
     // $inject is used to specify the route parameter. This ensures the
@@ -32,6 +32,11 @@ var app;
             .when("/productList", {
             templateUrl: "/app/products/productListView.html",
             controller: "ProductListCtrl as vm"
-        });
+        })
+            .when("/productDetail/:productId", {
+            templateUrl: "/app/products/productDetailView.html",
+            controller: "ProductDetailCtrl as vm"
+        })
+            .otherwise("/productList");
     }
 })(app || (app = {}));

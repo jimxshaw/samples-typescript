@@ -1,0 +1,1 @@
+{"version":3,"file":"hello_typescript.js","sourceRoot":"","sources":["hello_typescript.ts"],"names":["HelloTypeScript","HelloTypeScript.constructor"],"mappings":"AAAA;IACIA,yBAAmBA,OAAeA;QAAfC,YAAOA,GAAPA,OAAOA,CAAQA;IAAGA,CAACA;IAC1CD,sBAACA;AAADA,CAACA,AAFD,IAEC;AAED,IAAI,KAAK,GAAG,IAAI,eAAe,CAAC,gCAAgC,CAAC,CAAC;AAElE,OAAO,CAAC,GAAG,CAAC,KAAK,CAAC,OAAO,CAAC,CAAC"}

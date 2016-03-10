@@ -1,17 +1,37 @@
-﻿class Book {
-    constructor(title: string, author: string, genre: string) {
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
-        this.read = false;
-    }
+﻿function GetAllBooks() {
+    let books = [
+        { title: "The Hobbit", author: "J.R.R. Tolkein", available: true },
+        { title: "Of Mice and Men", author: "John Steinbeck", available: false },
+        { title: "Dune", author: "Frank Herbert", available: true },
+        { title: "The Gunslinger", author: "Stephen King", available: false }
+    ];
 
-    title: string;
-    author: string;
-    genre: string;
-    read: boolean;
+    return books;
 }
 
-var book1 = new Book("The Hobbit", "J.R.R. Tolkein", "Fantasy");
+function LogFirstAvailable(books): void {
+    let numberOfBooks: number = books.length;
+    let firstAvailable: string = "";
 
-console.log(book1.title, book1.author, book1.genre, book1.read);
+    for (let currentBook of books) {
+
+
+        if (currentBook.available) {
+            firstAvailable = currentBook.title;
+            break;
+        }
+    }
+
+    console.log("Total books: " + numberOfBooks);
+    console.log("First available: " + firstAvailable);
+}
+
+const allBooks = GetAllBooks();
+LogFirstAvailable(allBooks);
+
+
+
+
+
+
+

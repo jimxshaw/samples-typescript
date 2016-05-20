@@ -1,0 +1,10 @@
+{
+  "name": "LibraryManagerVS",
+  "version": "0.0.0",
+  "description": "LibraryManagerVS",
+  "main": "app.js",
+  "author": {
+    "name": "Software Engineer",
+    "email": ""
+  }
+}

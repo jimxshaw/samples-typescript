@@ -1,7 +1,10 @@
+//import { Observable } from "rxjs";
 "use strict";
-var rxjs_1 = require("rxjs");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/filter");
 var numbers = [1, 2, 3, 5, 7, 11];
-var source = rxjs_1.Observable.create(function (observer) {
+var source = Observable_1.Observable.create(function (observer) {
     var index = 0;
     var produceValue = function () {
         observer.next(numbers[index++]);

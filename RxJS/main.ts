@@ -2,7 +2,15 @@ import { Observable, Observer } from "rxjs";
 
 let numbers = [1, 2, 3, 5, 7, 11];
 
-let source = Observable.from(numbers);
+let source = Observable.create(observer => {
+
+    for (let n of numbers) {
+        observer.next(n);
+    }
+
+    observer.complete();
+
+});
 
 // Observers can be created using shorthand with lambdas or
 // below with an actual class.

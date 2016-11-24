@@ -7,13 +7,30 @@ function load(url) {
     return rxjs_1.Observable.create(function (observer) {
         var xhr = new XMLHttpRequest();
         xhr.addEventListener("load", function () {
-            var data = JSON.parse(xhr.responseText);
-            observer.next(data);
-            observer.complete();
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                observer.next(data);
+                observer.complete();
+            }
+            else {
+                observer.error(xhr.statusText);
+            }
         });
         xhr.open("GET", url);
         xhr.send();
-    });
+    }).retryWhen(retryStrategy({ attempts: 3, delay: 1500 }));
+}
+function retryStrategy(_a) {
+    var _b = _a.attempts, attempts = _b === void 0 ? 4 : _b, _c = _a.delay, delay = _c === void 0 ? 1000 : _c;
+    return function (errors) {
+        return errors
+            .scan(function (accumulator, value) {
+            console.log(accumulator, value);
+            return accumulator + 1;
+        }, 0)
+            .takeWhile(function (accumulator) { return accumulator < attempts; })
+            .delay(delay);
+    };
 }
 function renderMovies(movies) {
     movies.forEach(function (m) {

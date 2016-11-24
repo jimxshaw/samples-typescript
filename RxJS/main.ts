@@ -27,6 +27,10 @@ function load(url: string) {
 
 }
 
+function loadWithFetch(url: string) {
+
+}
+
 function retryStrategy({ attempts = 4, delay = 1000 }) {
     return function (errors) {
         return errors

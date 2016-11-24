@@ -28,7 +28,9 @@ function load(url: string) {
 }
 
 function loadWithFetch(url: string) {
-
+    return Observable.defer(() => {
+        return Observable.fromPromise(fetch(url).then(response => response.json()));
+    });
 }
 
 function retryStrategy({ attempts = 4, delay = 1000 }) {
@@ -51,7 +53,7 @@ function renderMovies(movies) {
     });
 }
 
-click.flatMap(e => load("movies.json"))
+click.flatMap(e => loadWithFetch("movies.json"))
      .subscribe(
         renderMovies,
         error => console.log(`error: ${error}`),

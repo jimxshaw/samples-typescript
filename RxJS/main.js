@@ -21,6 +21,9 @@ function load(url) {
     }).retryWhen(retryStrategy({ attempts: 3, delay: 1500 }));
 }
 function loadWithFetch(url) {
+    return rxjs_1.Observable.defer(() => {
+        return rxjs_1.Observable.fromPromise(fetch(url).then(response => response.json()));
+    });
 }
 function retryStrategy({ attempts = 4, delay = 1000 }) {
     return function (errors) {
@@ -40,6 +43,6 @@ function renderMovies(movies) {
         output.appendChild(div);
     });
 }
-click.flatMap(e => load("movies.json"))
+click.flatMap(e => loadWithFetch("movies.json"))
     .subscribe(renderMovies, error => console.log(`error: ${error}`), () => console.log("complete"));
 //# sourceMappingURL=main.js.map

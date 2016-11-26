@@ -28,19 +28,22 @@ function loadWithFetch(url) {
                 return Promise.reject(response);
             }
         }));
-    });
+    }).retryWhen(retryStrategy());
 }
 exports.loadWithFetch = loadWithFetch;
-function retryStrategy({ attempts = 4, delay = 1000 }) {
+function retryStrategy({ attempts = 4, delay = 1000 } = {}) {
     return function (errors) {
         return errors
             .scan((accumulator, value) => {
-            console.log(accumulator, value);
-            return accumulator + 1;
+            accumulator += 1;
+            if (accumulator < attempts) {
+                return accumulator;
+            }
+            else {
+                throw new Error(value);
+            }
         }, 0)
-            .takeWhile(accumulator => accumulator < attempts)
             .delay(delay);
     };
 }
-exports.retryStrategy = retryStrategy;
 //# sourceMappingURL=loader.js.map

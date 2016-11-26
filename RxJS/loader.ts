@@ -32,17 +32,22 @@ export function loadWithFetch(url: string) {
                 return Promise.reject(response);
             }
         }));
-    });
+    }).retryWhen(retryStrategy());
 }
 
-export function retryStrategy({ attempts = 4, delay = 1000 }) {
+function retryStrategy({ attempts = 4, delay = 1000 } = {}) {
     return function (errors) {
         return errors
             .scan((accumulator, value) => {
-                console.log(accumulator, value);
-                return accumulator + 1;
+                accumulator += 1;
+                if (accumulator < attempts) {
+                    return accumulator;
+                }
+                else {
+                    throw new Error(value);
+                }
             }, 0)
-            .takeWhile(accumulator => accumulator < attempts)
+            //.takeWhile(accumulator => accumulator < attempts)
             .delay(delay);
     };
 }

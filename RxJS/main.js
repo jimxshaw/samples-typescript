@@ -11,6 +11,10 @@ function renderMovies(movies) {
         output.appendChild(div);
     });
 }
+let subscription = loader_1.load("movies.json")
+    .subscribe(renderMovies, error => console.log(`error: ${error}`), () => console.log("complete!"));
+console.log(subscription);
+subscription.unsubscribe();
 click.flatMap(e => loader_1.loadWithFetch("movies.json"))
     .subscribe(renderMovies, error => console.log(`error: ${error}`), () => console.log("complete"));
 //# sourceMappingURL=main.js.map
